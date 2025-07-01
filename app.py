@@ -2,6 +2,12 @@
 from flask import Flask, request
 import requests
 
+app = Flask(__name__)
+…
+@app.route('/webhook', methods=['POST'])
+def webhook():
+    …
+
 import os
 BOT_TOKEN = os.environ.get('BOT_TOKEN')
 TELEGRAM_API_URL = f'https://api.telegram.org/bot{BOT_TOKEN}/sendMessage'
