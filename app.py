@@ -2,9 +2,9 @@
 from flask import Flask, request
 import requests
 
-import os
-Flask(__name__)
-BOT_TOKEN = os.environ.get('8012170017:AAHrZTw4tTJmZPJ818TFDV9ArnAqDGqOS38')
+import Flask
+app = Flask(__name__)
+BOT_TOKEN = '8012170017:AAHrZTw4tTJmZPJ818TFDV9ArnAqDGqOS38'
 TELEGRAM_API_URL = f'https://api.telegram.org/bot{BOT_TOKEN}/sendMessage'
 
 def send_message(chat_id, text):
@@ -30,3 +30,9 @@ def webhook():
         send_message(chat_id, "✨ Got it! Anything else you’d like to add?")
 
     return {'ok': True}
+
+if __name__ == '__main__':
+    # default to port 5000 if Render’s $PORT isn’t set
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
+
