@@ -3,15 +3,10 @@ from flask import Flask, request
 import requests
 
 import os
+app = Flask(__name__)
 BOT_TOKEN = os.environ.get('BOT_TOKEN')
 TELEGRAM_API_URL = f'https://api.telegram.org/bot{BOT_TOKEN}/sendMessage'
 
-app = Flask(__name__)
-@app.route('/webhook', methods=['POST'])
-def webhook():
-    payload = request.get_json()
-    chat_id = payload['message']['chat']['id']
-    incoming_text = payload['message'].get('text', '')
     
 def send_message(chat_id, text):
     requests.post(TELEGRAM_API_URL, json={'chat_id': chat_id, 'text': text})
@@ -41,4 +36,3 @@ if __name__ == '__main__':
     # default to port 5000 if Render’s $PORT isn’t set
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
-
